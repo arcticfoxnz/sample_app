@@ -1,0 +1,1 @@
+This is a demo application for learning rails as per hartl's tutorial. chapter 3.
