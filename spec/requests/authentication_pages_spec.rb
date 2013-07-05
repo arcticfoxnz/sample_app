@@ -35,6 +35,8 @@ describe "Authentication" do
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }
+        it { should_not have_link('Settings') }
+        it { should_not have_link('Profile') }
       end
     end
   end
@@ -49,6 +51,16 @@ describe "Authentication" do
       
       describe "submitting a DELETE request to the Users#destroy action" do
         before { delete user_path(user) }
+        specify { response.should redirect_to(root_path) }
+      end
+      
+      describe "signing in while already signed in" do
+        before { get signin_path }
+        specify { response.should redirect_to(root_path) }
+      end
+      
+      describe "signing up while already signed in" do
+        before { get signup_path }
         specify { response.should redirect_to(root_path) }
       end
     end

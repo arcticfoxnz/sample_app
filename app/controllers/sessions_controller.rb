@@ -1,4 +1,6 @@
 class SessionsController < ApplicationController
+  before_filter :what_user, only: [:create, :new]
+
   def new
   end
   
@@ -16,5 +18,17 @@ class SessionsController < ApplicationController
   def destroy
     sign_out
     redirect_to root_url
+  end
+
+  private
+  
+#  def what_user
+#      redirect_to root_url unless @current_user == nil
+#  end
+  
+  def what_user
+    if signed_in?
+      redirect_to(root_path)
+    end
   end
 end
